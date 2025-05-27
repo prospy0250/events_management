@@ -6,11 +6,64 @@ API RESTful pour la gestion d'événements et de réservations. Implémentée av
 
 ---
 
+## 🚀 Guide d'installation
+
+Voici les étapes pour installer et lancer localement l’API Eventify :
+
+### ✅ Prérequis
+
+* PHP ≥ 8.1
+* Composer
+* MySQL ou autre SGBD compatible
+* Node.js et npm (facultatif, pour les assets front-end si besoin)
+* Laravel CLI (`composer global require laravel/installer`)
+
+---
+
+### ⚙️ Étapes
+
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/prospy0250/events_management.git
+cd events_management/server
+cd eventify-api
+
+# 2. Installer les dépendances PHP
+composer install
+
+# 3. Générer la clé d’application
+php artisan key:generate
+
+# 4. Configurer la base de données dans le fichier .env
+# Exemple :
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=eventify_db
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 5. Lancer les migrations
+php artisan migrate
+
+# 6. Installer Laravel Sanctum
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+
+# 7. Lancer le serveur de développement
+php artisan serve
+```
+
+L'API est accessible à l’adresse :
+📍 [http://localhost:8000/api](http://localhost:8000/api)
+
+---
+
 ## 🔐 Authentification
 
 ### `POST /api/register`
 
-**Inscription d’un utilisateur**
+**Inscription d’un utilisateur** (accès libre: route non protégée par laravel sanctum)
 
 **Body JSON** :
 
@@ -35,7 +88,7 @@ API RESTful pour la gestion d'événements et de réservations. Implémentée av
 
 ### `POST /api/login`
 
-**Connexion utilisateur**
+**Connexion utilisateur** (accès libre: route non protégée par laravel sanctum)
 
 **Body JSON** :
 
@@ -109,7 +162,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 📅 Événements
+## 🗕️ Événements
 
 ### `POST /api/events/create`
 
@@ -242,7 +295,7 @@ Authorization: Bearer {token}
 
 ## 🛡️ Sécurité
 
-Toutes les routes protégées sont sécurisées avec Laravel Sanctum. Les utilisateurs doivent envoyer leur token avec l’en-tête suivant :
+Toutes les routes (sauf indication contraire) sont sécurisées avec Laravel Sanctum. Les utilisateurs doivent envoyer leur token avec l’en-tête suivant :
 
 ```
 Authorization: Bearer {token}
@@ -256,3 +309,4 @@ Authorization: Bearer {token}
 📧 [mandelasourabie@gmail.com](mailto:mandelasourabie@gmail.com)
 
 ---
+
